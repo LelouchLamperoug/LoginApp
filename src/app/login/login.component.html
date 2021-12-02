@@ -5,14 +5,14 @@
         <img id="logoImg" src="../../assets/img/logo-original-copy.png" alt="logo adroit">
     </div>
     <div>       
-     <form [formGroup] ="loginForm" (ngSubmit) ="onLogin()">
+     <form autocomplete="off" [formGroup] ="loginForm" (ngSubmit) ="onLogin()">
         <img src="../../assets/img/icon-users.svg"    
         class="iconusers">
-         <input formControlName="username" class="input" required type="text" placeholder="user@adroitoverseas.net">
+         <input autocomplete="off" formControlName="username" class="input" required type="text" placeholder="user@adroitoverseas.net">
          <div class="Line-2" ></div>  
         <img src="../../assets/img/candado.svg"    
      class="iconusers">
-     <input formControlName="password" class="input" type="password" required placeholder="Password">
+     <input autocomplete="off" formControlName="password" class="input" type="password" required placeholder="Password">
      <div class="Line-2" ></div>
      <button type="submit" class="loginbutton">Login</button>
     </form>

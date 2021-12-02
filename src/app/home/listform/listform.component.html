@@ -1,0 +1,37 @@
+<div style="border: none; margin: auto;" class="card">
+    <div class="card-body bg-info bg-gradient" style="border-radius: 20px;">
+        <form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form)">  
+            <div class="form-group">
+                <label>NAME</label>
+                <input class="form-control form-control-lg" placeholder="Name" name="name"
+                    #name="ngModel" [(ngModel)]="service.formData.name"
+                    required [class.invalid]="name.invalid && name.touched">
+            </div>
+            <div class="form-group">
+                <label>BRANCH ID</label>
+                <input class="form-control form-control-lg" placeholder="Branch Nickname" name="branchId"
+                    #branchId="ngModel" [(ngModel)]="service.formData.branchId"
+                    required  [class.invalid]="branchId.invalid && branchId.touched">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>CREATED BY ID</label>
+                    <input  class="form-control form-control-lg" placeholder="Created By Id" name="createdById"
+                        #createdById="ngModel" [(ngModel)]="service.formData.createdById"
+                        required  [class.invalid]="createdById.invalid && createdById.touched">
+                </div>
+                <!-- <div class="form-group col-md-6">
+                    <label>ID</label>
+                    <input class="form-control form-control-lg" placeholder="ID" name="id"
+                        #id="ngModel" [(ngModel)]="service.formData.id"
+                        required [class.invalid]="id.invalid && id.touched">
+                </div> -->
+                
+            </div>
+            <div class="form-group">
+                <button style="margin-top: 10px; width:300px;" class="btn btn-outline-danger" type="submit" [disabled]="form.invalid">SUBMIT</button>
+            </div>
+        </form>    
+    </div>
+</div>
+
