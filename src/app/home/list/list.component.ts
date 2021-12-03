@@ -12,8 +12,14 @@ export class ListComponent implements OnInit {
 
   constructor(public service:ListService,public authSvc:AuthService) { }
 
+  filter={
+   include:["createdBy","branch"],
+   sort:"createdAt DESC" 
+
+  }
+
   ngOnInit(): void {
-    this.service.refreshList();
+    this.service.refreshList("Origins",this.filter);
   }
 
 
@@ -23,10 +29,10 @@ export class ListComponent implements OnInit {
 
   onDelete(id: string) {
     if (confirm('Are you sure to delete this?')) {
-      this.service.deleteList(id)
+      this.service.deleteList(id,"Origins")
         .subscribe(
           res => {
-            this.service.refreshList();          
+            this.service.refreshList("Origins",this.filter);          
           },
           err => { console.log(err) }
         )

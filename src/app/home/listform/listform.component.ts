@@ -12,7 +12,11 @@ import { ListService } from 'src/app/shared/list.service';
 export class ListformComponent implements OnInit {
 
   constructor(public service:ListService) { }
-
+  filter={
+    include:["createdBy","branch"],
+    sort:"createdAt DESC" 
+ 
+   }
   ngOnInit(): void {
   }
 
@@ -24,10 +28,11 @@ export class ListformComponent implements OnInit {
   }
 
   insertRecord(form: NgForm) {
-    this.service.postList().subscribe(
+    this.service.formData.createdById = JSON.parse(localStorage.getItem('user'))['user']['id']
+    this.service.postList("Origins").subscribe(
       res => {
         this.resetForm(form);
-        this.service.refreshList();
+        this.service.refreshList("Origins",this.filter);
         
       },
       err => { console.log(err); }
@@ -35,10 +40,10 @@ export class ListformComponent implements OnInit {
   }
 
   updateRecord(form: NgForm) {
-    this.service.putList().subscribe(
+    this.service.putList("Origins").subscribe(
       res => {
         this.resetForm(form);
-        this.service.refreshList();
+        this.service.refreshList("Origins",this.filter);
        
       },
       err => { console.log(err); }

@@ -1,7 +1,7 @@
 export class List {
-    branchId:string ="";
+    branchId:string;
     createdById:string;
-    name:string ="";
+    name:string;
     id:string;
     createdAt:"$now";
 }

@@ -1,5 +1,7 @@
 @media (max-width: 375px){
 
-
+ .tablebody{
+     width: 300px;
+ }
 
 }
