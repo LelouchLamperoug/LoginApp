@@ -9,7 +9,9 @@
         <app-listform></app-listform>
     </div>
     <div style="margin: auto;" class="tablebody col-md-6">
-        <input style="margin-top: 10px;" type="tel"  placeholder="Search">
+        <app-search (onDebounce)="getQuery($event)"></app-search>
+
+
         <table class="table ">
             <thead class="thead-light">
                 <tr>
@@ -22,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let pd of service.list">
+                <tr *ngFor="let pd of (sugerencia.length > 0 ? sugerencia : service.list)">
                     <td  (click)="populateForm(pd)">{{pd.name}}</td>
                     <td (click)="populateForm(pd)">{{pd.id}}</td>
                     <td (click)="populateForm(pd)">{{pd.branchId}}</td>

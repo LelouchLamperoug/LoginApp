@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
+import { Origin } from '../home/list/list.component';
 import { List } from './list.model';
 
 @Injectable({
@@ -13,7 +14,7 @@ export class ListService {
 
   readonly baseURL = "https://apitest.adroitoverseas.net/api/"
   
- 
+
  
 
   formData:List = new List();
@@ -37,4 +38,33 @@ export class ListService {
       .toPromise()
       .then(res =>this.list = res as List[]);
   }
+
+  getQuery(termino:string, propiedades?:string[]){
+    let where: any = {
+      name: 'hola',
+      fecha: 'hola'
+    }
+
+    // propiedades!.forEach(element => {
+    //   where[element] = { like: termino, options: 'i' }
+    // });
+
+      where = {name: { like: termino, options: 'i' }}
+
+    return where
+  }
+
+
+  getSuggestion(model: string, query: any) {
+    const filter = {
+      include: ["branch"],
+      where: query,
+      sort: "createdAt ASC"
+    }
+
+
+    const url = `${this.baseURL}${model}?filter=${JSON.stringify(filter)}&access_token=${JSON.parse(localStorage.getItem('user'))['id']}`
+    return this.http.get<Origin[]>(url)
+  }
+
 }

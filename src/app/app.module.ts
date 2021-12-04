@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { ListComponent } from './home/list/list.component';
 import { ListformComponent } from './home/listform/listform.component';
+import { SearchComponent } from './home/home/search/search.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ListformComponent } from './home/listform/listform.component';
     LoginComponent,
     HomeComponent,
     ListComponent,
-    ListformComponent
+    ListformComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
