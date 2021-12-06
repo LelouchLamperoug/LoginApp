@@ -1,0 +1,15 @@
+.home{
+    overflow: hidden;
+
+
+
+}
+
+
+@media (max-width: 375px){
+
+    .home{
+        overflow: auto;
+    }
+   
+}

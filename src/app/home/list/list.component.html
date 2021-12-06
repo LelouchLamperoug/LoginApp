@@ -6,17 +6,16 @@
   </nav>
 <div style="display: grid;" class="row">
     <div style="margin: auto; padding-top: 50px;" class="col-md-6">
-        <app-listform></app-listform>
+        <app-listform ></app-listform>
     </div>
-    <div style="margin: auto;" class="tablebody col-md-6">
-        <app-search (onDebounce)="getQuery($event)"></app-search>
+    <div style="margin: auto;" class="container tablebody col-md-6">
+        
 
 
-        <table class="table ">
+        <!-- <table class="table ">
             <thead class="thead-light">
                 <tr>
-                    <th >Name</th>
-                    <th >Id</th>
+                    <th >Name</th>                   
                     <th >Branch Id</th>
                     <th >createdById</th>
                     <th >createdAt</th>
@@ -24,10 +23,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let pd of (sugerencia.length > 0 ? sugerencia : service.list)">
-                    <td  (click)="populateForm(pd)">{{pd.name}}</td>
-                    <td (click)="populateForm(pd)">{{pd.id}}</td>
-                    <td (click)="populateForm(pd)">{{pd.branchId}}</td>
+                <tr *ngFor="let pd of (sugerencia.length > 0 ? sugerencia : origins)">
+                    <td  (click)="populateForm(pd)">{{pd.name}}</td>                    
+                    <td (click)="populateForm(pd)">{{pd.branch ? pd.branch.name : ''}}</td>
                     <td (click)="populateForm(pd)">{{pd.createdById}}</td>
                     <td (click)="populateForm(pd)">{{pd.createdAt}}</td>
                     <td>
@@ -35,6 +33,6 @@
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
     </div>
 </div>

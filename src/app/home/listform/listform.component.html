@@ -13,6 +13,31 @@
                     #branchId="ngModel" [(ngModel)]="service.formData.branchId"
                     required  [class.invalid]="branchId.invalid && branchId.touched">
             </div>
+
+            <app-search (onDebounce)="getQuery($event)"></app-search>
+
+            <table class="table ">
+                <thead class="thead-light">
+                    <tr>
+                        <th >Name</th>                   
+                        <th >Branch Id</th>
+                        <th >createdById</th>
+                        <th >createdAt</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pd of (sugerencia.length > 0 ? sugerencia : origins)">
+                        <td  (click)="populateForm(pd)">{{pd.name}}</td>                    
+                        <td (click)="populateForm(pd)">{{pd.branch ? pd.branch.name : ''}}</td>
+                        <td (click)="populateForm(pd)">{{pd.createdById}}</td>
+                        <td (click)="populateForm(pd)">{{pd.createdAt}}</td>
+                        <td>
+                            <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(pd.id)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <!-- <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>CREATED BY ID</label>

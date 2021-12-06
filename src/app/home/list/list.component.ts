@@ -9,6 +9,14 @@ export interface Origin {
   createdAt:   Date;
   name:        string;
   id:          string;
+  branch?:      Branch;
+}
+
+export interface Branch {
+  name:     string;
+  nickname: string;
+  color:    string;
+  id:       string;
 }
 @Component({
   selector: 'app-list',
@@ -22,6 +30,7 @@ export class ListComponent implements OnInit {
   sugerencia: Origin[] = []
   termino: string ="";
   properties: string[] = []
+  origins:any;
   filter={
    include:["createdBy","branch"],
    sort:"createdAt DESC" 
@@ -29,7 +38,8 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.service.refreshList("Origins",this.filter);
+    this.getAll()
+    
   }
   getQuery(termino:string){
 
@@ -41,12 +51,21 @@ export class ListComponent implements OnInit {
     
     this.service.getSuggestion('Origins', query)
       .subscribe(resp =>{
-        console.log('origin', resp);
+       
         this.sugerencia = resp
       })
-
-    console.log('query', query);
     
+  }
+
+  getAll(){
+    const filter = {
+      include: ["branch"]
+    }
+    this.service.refreshList("Origins", filter)
+      .subscribe(valores => {
+        console.log(valores);
+        this.origins = valores;
+      })
   }
 
 
