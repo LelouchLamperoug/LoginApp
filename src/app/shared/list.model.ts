@@ -3,5 +3,13 @@ export class List {
     createdById:string;
     name:string;
     id:string;
-    createdAt:"$now";
+    createdAt:Date;
+    branch:Branch;
+
 }
+export class Branch {
+    name:     string;
+    nickname: string;
+    color:    string;
+    id:       string;
+  }

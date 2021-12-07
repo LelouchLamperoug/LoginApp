@@ -1,16 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-
-import { List } from 'src/app/shared/list.model';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Branch, List } from 'src/app/shared/list.model';
 import { ListService } from 'src/app/shared/list.service';
 import { Origin } from '../list/list.component';
 
-export interface Branch {
-  name:     string;
-  nickname: string;
-  color:    string;
-  id:       string;
-}
 @Component({
   selector: 'app-listform',
   templateUrl: './listform.component.html',
@@ -19,62 +12,105 @@ export interface Branch {
 export class ListformComponent implements OnInit {
  
 
-  constructor(public service:ListService) { }
+  constructor(public service:ListService, private fb: FormBuilder) { }
   properties: string[] = []
   origins:any;
+  body: object = {};
+  branchSelected: any 
+  branchs: any;
   sugerencia: Origin[] = []
   termino: string ="";
-  filter={
-    include:["createdBy","branch"],
+  
+   filter={
+    
+    include:["createdById","branch"],
     sort:"createdAt DESC" 
  
    }
+
+   form: FormGroup = this.fb.group({
+    branchId: ['', Validators.required],
+    name: ['', Validators.required],
+    
+  })
   ngOnInit(): void {
     this.getAll()
+    this.getAllBranchs();
+    this.getAllOrigins();
+    
   }
 
   
-  populateForm(selectedRecord: List) {
-    this.service.formData = Object.assign({}, selectedRecord);
+
+  
+  populateForm(origin:any) {
+    this.branchSelected = origin;
+    this.form.reset(origin)
+    // this.service.formData = Object.assign({}, selectedRecord);
   }
 
-  onSubmit(form: NgForm) {
-    if (this.service.formData.id == null)
-      this.insertRecord(form);
-    else
-      this.updateRecord(form);
-  }
 
-  insertRecord(form: NgForm) {
-    this.service.formData.createdById = JSON.parse(localStorage.getItem('user'))['user']['id']
-    this.service.postList("Origins").subscribe(
-      res => {
-        this.resetForm(form);
-        this.service.refreshList("Origins",this.filter);
-        this.getAll()
+  registerOrUpdate() {
+   
+    const { name, branchId } = this.form.value;
+    let idOrigin = '';
+
+    this.body = {
+      branchId: branchId,
+      createdById: JSON.parse(localStorage.getItem('user'))['user']['id'],
+      name: name
+    };
+
+    if (this.branchSelected) {
+      idOrigin = this.branchSelected.id;
+    }
+
+    this.service.registerOrUpdate('Origins', this.body, idOrigin)
+      .subscribe(res => {
+        this.getAllOrigins();
+        this.form.reset()
         
-      },
-      err => { console.log(err); }
-    );
-  }
-
-  updateRecord(form: NgForm) {
-    this.service.putList("Origins").subscribe(
-      res => {
-        this.resetForm(form);
-        this.service.refreshList("Origins",this.filter);
-        this.getAll()
-       
-      },
-      err => { console.log(err); }
-    );
+      })
   }
 
 
-  resetForm(form: NgForm) {
-    form.form.reset();
-    this.service.formData = new List();
-  }
+  
+
+  
+  // onSubmit1() {
+  //   console.log(this.form.value);
+    
+  //   if (this.service.formData.id == null)
+  //     this.insertRecord(this.form.value);
+  //   else
+  //     this.updateRecord(this.form.value);
+  // }
+
+  // insertRecord(form: NgForm) {
+  //   this.service.formData.createdById = JSON.parse(localStorage.getItem('user'))['user']['id']
+  //   this.service.formData.branchId = JSON.parse(localStorage.getItem('user'))['user']['branchIds']
+  //   this.service.postList("Origins").subscribe(
+  //     res => {
+  //       this.form.reset();
+  //       this.service.refreshList("Origins",this.filter);
+  //       this.getAll()      
+  //     },
+  //     err => { console.log(err); }
+  //   );
+  // }
+
+  // updateRecord(form: NgForm) {
+  //   this.service.putList("Origins").subscribe(
+  //     res => {
+  //       // this.resetForm();
+  //       this.form.reset();
+  //       this.service.refreshList("Origins",this.filter);
+  //       this.getAll()     
+  //     },
+  //     err => { console.log(err); }
+  //   );
+  // }
+
 // *****************************************
 getQuery(termino:string){
 
@@ -92,6 +128,25 @@ getQuery(termino:string){
   
 }
 
+getAllOrigins() {
+
+  const filtes = {
+    include: ["branch"]
+  }
+
+  this.service.refreshList('Origins', filtes)
+    .subscribe(origins => {
+      this.origins = origins;
+    })
+}
+
+getAllBranchs(){
+  this.service.refreshList("Branches")
+    .subscribe(valores => {
+      console.log(valores);
+      this.branchs = valores;
+    })
+}
 getAll(){
   const filter = {
     include: ["branch"]

@@ -44,10 +44,21 @@ export class ListService {
     return this.http.delete(`${this.baseURL}${model}/${id}?access_token=${this.token()}`);
   }
 
-  refreshList(model:string,filter:any) {
+  refreshList(model:string,filter?:any) {
+        const filter1 = `filter=${JSON.stringify(filter)}`
 
-    return this.http.get(`${this.baseURL}${model}?filter=${JSON.stringify(filter)}&access_token=${this.token()}`)
+
+    return this.http.get(`${this.baseURL}${model}?${filter ? filter1 : ''}&access_token=${this.token()}`)
   }
+
+
+  // getAll(model: string, filters?: any) {
+  //   const filter = `filter=${JSON.stringify(filters)}`
+    
+  //   const url = `${this.apiBase}${model}?${filters ? filter : ''}&access_token=${this.infoUser.id}`;
+
+  //   return this.http.get(url)
+  // }
 
   getQuery(termino:string, propiedades?:string[]){
     let where: any = {
@@ -76,4 +87,10 @@ export class ListService {
     return this.http.get<Origin[]>(url)
   }
 
+
+
+  registerOrUpdate(model: string, body?: object, idOrigin?: any) {
+    const url = `${this.baseURL}${model}/${idOrigin}?access_token=${this.token()}`;
+    return this.http.patch(url, body);
+  }
 }
