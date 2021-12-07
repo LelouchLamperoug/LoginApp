@@ -26,20 +26,11 @@ export class ListService {
     }
   
   }
- 
 
   formData:List = new List();
 
   list: any;
-
-  postList(model:string) {
-    return this.http.post(`${this.baseURL}${model}?access_token=${this.token()}`, this.formData);
-  }
-
-  putList(model:string) {
-    return this.http.patch(`${this.baseURL}${model}/${this.formData.id}?access_token=${this.token()}`, this.formData);
-  }
-
+  
   deleteList(id: string,model:string) {
     return this.http.delete(`${this.baseURL}${model}/${id}?access_token=${this.token()}`);
   }
@@ -47,24 +38,13 @@ export class ListService {
   refreshList(model:string,filter?:any) {
         const filter1 = `filter=${JSON.stringify(filter)}`
 
-
     return this.http.get(`${this.baseURL}${model}?${filter ? filter1 : ''}&access_token=${this.token()}`)
   }
-
-
-  // getAll(model: string, filters?: any) {
-  //   const filter = `filter=${JSON.stringify(filters)}`
-    
-  //   const url = `${this.apiBase}${model}?${filters ? filter : ''}&access_token=${this.infoUser.id}`;
-
-  //   return this.http.get(url)
-  // }
 
   getQuery(termino:string, propiedades?:string[]){
     let where: any = {
       
     }
-
     // propiedades!.forEach(element => {
     //   where[element] = { like: termino, options: 'i' }
     // });

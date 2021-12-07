@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { Branch, List } from 'src/app/shared/list.model';
 import { ListService } from 'src/app/shared/list.service';
 import { Origin } from '../list/list.component';
 
@@ -13,6 +12,7 @@ export class ListformComponent implements OnInit {
  
 
   constructor(public service:ListService, private fb: FormBuilder) { }
+
   properties: string[] = []
   origins:any;
   body: object = {};
@@ -21,14 +21,14 @@ export class ListformComponent implements OnInit {
   sugerencia: Origin[] = []
   termino: string ="";
   
-   filter={
+  filter={
     
     include:["createdById","branch"],
     sort:"createdAt DESC" 
- 
-   }
 
-   form: FormGroup = this.fb.group({
+}
+
+  form: FormGroup = this.fb.group({
     branchId: ['', Validators.required],
     name: ['', Validators.required],
     
@@ -46,12 +46,10 @@ export class ListformComponent implements OnInit {
   populateForm(origin:any) {
     this.branchSelected = origin;
     this.form.reset(origin)
-    // this.service.formData = Object.assign({}, selectedRecord);
   }
 
 
-  registerOrUpdate() {
-   
+  registerOrUpdate() {  
     const { name, branchId } = this.form.value;
     let idOrigin = '';
 
@@ -74,42 +72,6 @@ export class ListformComponent implements OnInit {
   }
 
 
-  
-
-  
-  // onSubmit1() {
-  //   console.log(this.form.value);
-    
-  //   if (this.service.formData.id == null)
-  //     this.insertRecord(this.form.value);
-  //   else
-  //     this.updateRecord(this.form.value);
-  // }
-
-  // insertRecord(form: NgForm) {
-  //   this.service.formData.createdById = JSON.parse(localStorage.getItem('user'))['user']['id']
-  //   this.service.formData.branchId = JSON.parse(localStorage.getItem('user'))['user']['branchIds']
-  //   this.service.postList("Origins").subscribe(
-  //     res => {
-  //       this.form.reset();
-  //       this.service.refreshList("Origins",this.filter);
-  //       this.getAll()      
-  //     },
-  //     err => { console.log(err); }
-  //   );
-  // }
-
-  // updateRecord(form: NgForm) {
-  //   this.service.putList("Origins").subscribe(
-  //     res => {
-  //       // this.resetForm();
-  //       this.form.reset();
-  //       this.service.refreshList("Origins",this.filter);
-  //       this.getAll()     
-  //     },
-  //     err => { console.log(err); }
-  //   );
-  // }
 
 // *****************************************
 getQuery(termino:string){
@@ -121,8 +83,7 @@ getQuery(termino:string){
   const query = this.service.getQuery(termino, this.properties)
   
   this.service.getSuggestion('Origins', query)
-    .subscribe(resp =>{
-     console.log(this.sugerencia)
+    .subscribe(resp =>{    
       this.sugerencia = resp
     })
   
@@ -142,18 +103,18 @@ getAllOrigins() {
 
 getAllBranchs(){
   this.service.refreshList("Branches")
-    .subscribe(valores => {
-      console.log(valores);
+    .subscribe(valores => {     
       this.branchs = valores;
     })
 }
+
 getAll(){
   const filter = {
     include: ["branch"]
   }
   this.service.refreshList("Origins", filter)
     .subscribe(valores => {
-      console.log(valores);
+      
       this.origins = valores;
     })
 }

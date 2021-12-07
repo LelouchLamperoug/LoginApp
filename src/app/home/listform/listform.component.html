@@ -1,38 +1,24 @@
 <div style="border: none;" class="card carta">
-    <div class="card-body bg-info bg-gradient carta" style="border-radius: 20px;">
-        <!-- <form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form)">   -->
+    <div class="card-body bg-info bg-gradient carta" style="border-radius: 20px;">       
         <form novalidate autocomplete="off" [formGroup]="form" (submit)="registerOrUpdate()">  
             <div class="form-group">
-                <label>NAME</label>
-                <!-- <input class="form-control form-control-lg" placeholder="Name" formControlName="name" name="name"
-                    #name="ngModel" [(ngModel)]="service.formData.name" -->
-                <input class="form-control form-control-lg" placeholder="Name" formControlName="name" 
-                     [(ngModel)]="service.formData.name"
-                    required>
-                    <!-- required [class.invalid]="name.invalid && name.touched"> -->
+                <label>NAME</label>             
+                <input class="form-control form-control-lg" placeholder="Name" formControlName="name"                   
+                    required>                    
                     <br><br>
                     <mat-form-field appearance="fill">
                         <mat-label>Branch </mat-label>
                         <mat-select formControlName="branchId">
-                          <mat-option *ngFor="let branch of branchs" [value]="branch.id">
+                        <mat-option *ngFor="let branch of branchs" [value]="branch.id">
                             {{branch.name}}
-                          </mat-option>
+                        </mat-option>
                         </mat-select>
-                      </mat-form-field>
-            </div>  
-           
-            <!-- <div class="form-group">
-                <label>BRANCH ID</label>
-                <input class="form-control form-control-lg" placeholder="Branch Nickname" name="branchId"
-                    #branchId="ngModel" [(ngModel)]="service.formData.branchId"
-                    required  [class.invalid]="branchId.invalid && branchId.touched">
-            </div> -->
+                    </mat-form-field>
+            </div>             
             <div class="form-group">
                 <button style="margin-top: 10px; width:250px;" class="btn btn-outline-danger" type="submit" [disabled]="form.invalid">SUBMIT</button>
             </div>
-
             <app-search (onDebounce)="getQuery($event)"></app-search>
-
             <table class="table ">
                 <thead class="thead-light">
                     <tr>
@@ -54,21 +40,7 @@
                     </tr>
                 </tbody>
             </table>
-            <!-- <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label>CREATED BY ID</label>
-                    <input  class="form-control form-control-lg" placeholder="Created By Id" name="createdById"
-                        #createdById="ngModel" [(ngModel)]="service.formData.createdById"
-                        required  [class.invalid]="createdById.invalid && createdById.touched">
-                </div>
-                <div class="form-group col-md-6">
-                    <label>ID</label>
-                    <input class="form-control form-control-lg" placeholder="ID" name="id"
-                        #id="ngModel" [(ngModel)]="service.formData.id"
-                        required [class.invalid]="id.invalid && id.touched">
-                </div>
-                
-            </div> -->
+            
         </form>    
     </div>
 </div>

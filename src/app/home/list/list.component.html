@@ -1,38 +1,11 @@
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-      <span class="navbar-brand mb-0 h1">Login App</span>
-      <button class="btn btn-outline-success me-2" type="button" (click)="authSvc.logout()">Logout</button>
+    <span class="navbar-brand mb-0 h1">Login App</span>
+    <button class="btn btn-outline-success me-2" type="button" (click)="authSvc.logout()">Logout</button>
     </div>
-  </nav>
+</nav>
 <div style="display: grid;" class="row">
     <div style="margin: auto; padding-top: 50px;" class="col-md-6">
         <app-listform ></app-listform>
-    </div>
-    <div style="margin: auto;" class="container tablebody col-md-6">
-        
-
-
-        <!-- <table class="table ">
-            <thead class="thead-light">
-                <tr>
-                    <th >Name</th>                   
-                    <th >Branch Id</th>
-                    <th >createdById</th>
-                    <th >createdAt</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let pd of (sugerencia.length > 0 ? sugerencia : origins)">
-                    <td  (click)="populateForm(pd)">{{pd.name}}</td>                    
-                    <td (click)="populateForm(pd)">{{pd.branch ? pd.branch.name : ''}}</td>
-                    <td (click)="populateForm(pd)">{{pd.createdById}}</td>
-                    <td (click)="populateForm(pd)">{{pd.createdAt}}</td>
-                    <td>
-                        <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(pd.id)"></i>
-                    </td>
-                </tr>
-            </tbody>
-        </table> -->
-    </div>
+    </div>  
 </div>

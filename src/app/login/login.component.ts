@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm = this.fb.group({
-    username:["rafael"],
-    password:["tamalitos11"]
+    username:[""],
+    password:[""]
 
   })
   constructor(private authSvc: AuthService,private fb :FormBuilder,private router:Router) { }
