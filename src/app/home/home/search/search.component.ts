@@ -1,10 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-
-
-
-
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -23,15 +19,11 @@ ngOnInit(): void {
     .pipe(debounceTime(300))
     .subscribe(value => {
       this.onDebounce.emit(value);
-    })
+    });
 }
-
-
 search() {
   this.debouncer.next(this.termino);
   
 }
-  
- 
 }
 

@@ -16,7 +16,9 @@ const helper = new JwtHelperService();
 export class AuthService {
   private user = new BehaviorSubject<UserResponse>(null);
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient, 
+    private router: Router) {
     this.checkToken();
   }
   get user$(): Observable<UserResponse> {
@@ -47,10 +49,8 @@ export class AuthService {
 
   private checkToken(): void {
     const user = JSON.parse(localStorage.getItem('user')) || null;
-
     if (user) {
       const isExpired = helper.isTokenExpired(user.token);
-
       if (isExpired) {
         this.logout();
       } else {
@@ -63,7 +63,6 @@ export class AuthService {
     const { userId, message, ...rest } = user;
     localStorage.setItem('user', JSON.stringify(rest));
   }
-
   private handlerError(err): Observable<never> {
     let errorMessage = 'An errror occured retrienving data';
     if (err) {
